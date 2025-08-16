@@ -1,0 +1,43 @@
+<!-- HTML -->
+
+<link rel="stylesheet" href="/style.css">
+
+<h1>Blog Dashboard</h1>
+
+<!-- Create Post -->
+<h2>Create Post</h2>
+<form action="/new" method="POST">
+  <input type="text" name="title" placeholder="Title" required>
+  <br><br>
+  <textarea name="content" placeholder="Content" required></textarea>
+  <br><br>
+  <button type="submit">Publish</button>
+</form>
+
+<hr>
+
+<!-- Show Posts -->
+<h2>All Posts</h2>
+
+<% if (posts.length > 0) { %>
+  <% posts.forEach(function(post) { %>
+    <div class="post">
+      <h3><%= post.title %></h3>
+      <p><%= post.content %></p>
+      <small>Posted on: <%= new Date(post.created_at).toLocaleString() %></small>
+      <br><br>
+
+      <!-- Delete -->
+      <form action="/delete/<%= post.id %>" method="POST" style="display: inline;">
+        <button type="submit">Delete</button>
+      </form>
+
+      <!-- Edit -->
+      <form action="/edit/<%= post.id %>" method="GET" style="display: inline;">
+        <button type="submit">Edit</button>
+      </form>
+    </div>
+  <% }); %>
+<% } else { %>
+  <p>No posts yet.</p>
+<% } %>
